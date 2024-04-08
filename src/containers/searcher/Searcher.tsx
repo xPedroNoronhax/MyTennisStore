@@ -1,6 +1,6 @@
 const Searcher = () => {
   return (
-    <form className="w-[467px] flex bg-slate-100 rounded-xl mx-auto gap-1 mt-[36px]">
+    <form className="w-[467px] flex bg-slate-100 rounded-xl mx-auto gap-1 mt-[36px] border ">
       <label className="py-2 px-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
