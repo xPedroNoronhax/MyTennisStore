@@ -14,17 +14,17 @@ function Banner() {
   };
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect} className="mt-[81px]">
+    <Carousel activeIndex={index} onSelect={handleSelect} className="mt-[81px] sm:min-h-28 ">
       <Carousel.Item>
-        <img src={Blade} className="w-screen max-h-[300px]" />
+        <img src={Blade} className="w-screen lg:h-[300px] h-28" />
         <Carousel.Caption></Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img src={Ezone} className="w-screen max-h-[300px]" />
+        <img src={Ezone} className="w-screen lg:h-[300px] h-28" />
         <Carousel.Caption></Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img src={Pure} className="w-screen max-h-[300px]" />
+        <img src={Pure} className="w-screen lg:h-[300px] h-28" />
         <Carousel.Caption></Carousel.Caption>
       </Carousel.Item>
     </Carousel>

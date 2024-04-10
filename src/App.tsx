@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <div className="mx-auto max-w-1440">
+    <div className="max-w-1440 ">
       <Header />
       <Searcher />
       <main>
