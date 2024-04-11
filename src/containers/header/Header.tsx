@@ -1,6 +1,8 @@
+
 import CartUser from "../../components/cart&user/CartUser";
 import Logo from "../../components/logo/Logo";
 import MenuItem from "../../components/menu/MenuItem";
+
 
 
 const Header = () => {
@@ -14,14 +16,18 @@ const Header = () => {
           <CartUser />
         </div>
       </div>
-      <nav className="hidden lg:flex lg:flex-grow lg:items-center lg:w-auto">
-        <ul className="flex flex-wrap gap-x-8 items-center">
+      <nav className=" lg:flex lg:flex-grow lg:items-center lg:w-auto">
+        
+   
+        <ul className="hidden lg:flex lg:flex-wrap gap-x-8 items-center">
           <MenuItem item="Babolat" />
           <MenuItem item="Head" />
           <MenuItem item="Yonex" />
           <MenuItem item="Wilson" />
         </ul>
       </nav>
+      
+     
 
       <div className="hidden lg:block">
         <CartUser />
