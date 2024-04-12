@@ -60,7 +60,7 @@ const Footer = () => {
       </div>
       <div id="midia" className="flex-col">
         <h3 className="text-xl font-bold">Redes Sociais</h3>
-        <ul className="gap-y-5 gap-x-2 flex mx-auto mt-[20px]">
+        <ul className="gap-y-5 gap-x-2 flex md:mx-auto mt-[20px] w-full justify-center">
           <li className="mb-2">
             <i>
               <a href="">

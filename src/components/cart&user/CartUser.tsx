@@ -1,6 +1,6 @@
 const CartUser = () => {
   return (
-    <div className="max-w-[114px] flex gap-8">
+    <div className="max-w-[114px] w-full flex gap-8 md:ml-[360px]  mx-auto md:mt-3  ">
       <div className="relative">
         <i>
           <svg
