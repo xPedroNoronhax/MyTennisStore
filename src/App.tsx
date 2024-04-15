@@ -15,10 +15,10 @@ function App() {
     {/* Main Page */}
       <main>
         <Searcher />
-        <Banner />
-        <Produtos title="Mais vendidos" />
-        <Produtos title="Tendências" />
-        {/* <InfoProduct/> */}
+        {/* <Banner /> */}
+        {/* <Produtos title="Mais vendidos" />
+        <Produtos title="Tendências" /> */}
+        <InfoProduct/>
         <Footer />
       </main> 
       
