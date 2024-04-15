@@ -9,9 +9,9 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ productName }) => {
   return (
     <div className="w-[240px] border-solid border-2 border-slate-800 rounded-2xl flex flex-col md:mb-0 mb-4 ">
-      <img src={blade} className="h-48 flex mb-[32px] " />
+      <img src={blade} className="h-48 flex mb-[32px] cursor-pointer " />
       <div className="mb-2">
-        <h2 className="font-bold">{productName}</h2>
+        <h2 className="font-bold cursor-pointer">{productName}</h2>
         <p className="font-semibold">R$1000,00</p>
         <div className="flex justify-center">
           <i>

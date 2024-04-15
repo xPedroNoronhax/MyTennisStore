@@ -14,7 +14,7 @@ function Banner() {
   };
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect} className="mt-[81px] sm:min-h-28 ">
+    <Carousel activeIndex={index} onSelect={handleSelect} className="mt-[81px] sm:min-h-28 cursor-pointer ">
       <Carousel.Item>
         <img src={Blade} className="w-screen lg:h-[300px] h-28" />
         <Carousel.Caption></Carousel.Caption>
