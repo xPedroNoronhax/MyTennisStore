@@ -1,18 +1,23 @@
 import React from "react";
-import blade from "../../assets/blade.png";
 import Button from "react-bootstrap/Button";
 
 interface ProductCardProps {
-  productName: string;
+  productName?: string;
+  productImage?: string;
+  productPrice?: number;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ productName }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  productName,
+  productImage,
+  productPrice,
+}) => {
   return (
     <div className="w-[240px] border-solid border-2 border-slate-800 rounded-2xl flex flex-col md:mb-0 mb-4 ">
-      <img src={blade} className="h-48 flex mb-[32px] cursor-pointer " />
+      <img src={productImage} className="h-48 flex mb-[32px] cursor-pointer " />
       <div className="mb-2">
         <h2 className="font-bold cursor-pointer">{productName}</h2>
-        <p className="font-semibold">R$1000,00</p>
+        <p className="font-semibold">{`R$ ${productPrice?.toFixed(2)}`}</p>
         <div className="flex justify-center">
           <i>
             <svg
@@ -30,7 +35,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ productName }) => {
               />
             </svg>
           </i>
-          <p>Até 10x de R$100,00</p>
+          <p>Até 10 x de {`${productPrice?.toFixed(2)/10} `}</p>
         </div>
       </div>
       <Button className=" w-1/2 mx-auto mb-4 bg-black">Comprar</Button>

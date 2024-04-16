@@ -7,6 +7,7 @@ import Searcher from "./containers/searcher/Searcher";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@ionic/react/css/core.css";
 import InfoProduct from "./containers/info_product/InfoProduct";
+import PageProdutos from "./containers/produtos/PageProdutos";
 
 function App() {
   return (
@@ -15,10 +16,11 @@ function App() {
     {/* Main Page */}
       <main>
         <Searcher />
-        {/* <Banner /> */}
-        {/* <Produtos title="Mais vendidos" />
+        {/* <Banner />
+        <Produtos title="Mais vendidos" />
         <Produtos title="Tendências" /> */}
-        <InfoProduct/>
+        <PageProdutos marcaSelecionada="WILSON"/>
+        {/* <InfoProduct/> */}
         <Footer />
       </main> 
       
