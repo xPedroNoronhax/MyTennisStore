@@ -261,7 +261,7 @@ const produtos = [
     marca: "WILSON",
     modelos: [
       {
-        modelo: "BLADE 98",
+        modelo: "BLADE 98 18x20",
         peso: "305G",
         tamanho_cabeca: "98 sq in",
         padrao_cordas: "18X20",
@@ -272,7 +272,7 @@ const produtos = [
         preco: 1750.0,
       },
       {
-        modelo: "BLADE 98",
+        modelo: "BLADE 98 16x19",
         peso: "305G",
         tamanho_cabeca: "98 sq in",
         padrao_cordas: "16X19",

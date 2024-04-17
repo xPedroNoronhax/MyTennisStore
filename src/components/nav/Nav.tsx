@@ -2,6 +2,7 @@ import { useState } from "react";
 import MenuItem from "../menu/MenuItem";
 import Logo from "../logo/Logo";
 import CartUser from "../cart&user/CartUser";
+import { NavLink } from "react-router-dom";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
@@ -14,7 +15,9 @@ const Nav = () => {
       text-gray-800"
         >
           <span className="text-3xl text-indigo-600 mr-1 pt-2">
-            <Logo />
+            <NavLink to='/'>
+              <Logo />
+            </NavLink>
           </span>
          
         </div>
@@ -43,10 +46,18 @@ const Nav = () => {
             open ? "top-20 " : "top-[-490px]"
           }`}
         >
-          <MenuItem item="Babolat" />
-          <MenuItem item="Head" />
-          <MenuItem item="Yonex" />
-          <MenuItem item="Wilson" />
+          <NavLink to="/babolat">
+            <MenuItem item="Babolat" />
+          </NavLink>
+          <NavLink to='/head'>
+            <MenuItem item="Head" />
+          </NavLink>
+          <NavLink to="/yonex">
+            <MenuItem item="Yonex" />
+          </NavLink>
+          <NavLink to='/wilson'>
+            <MenuItem item="Wilson" />
+          </NavLink>
         </ul>
         <CartUser />
         

@@ -35,7 +35,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
               />
             </svg>
           </i>
-          <p>Até 10 x de {`${productPrice?.toFixed(2)/10} `}</p>
+          {typeof productPrice === "number" && (
+            <p>
+              Até 10 x de {`${(+productPrice.toFixed(2) / 10).toFixed(2)} `}
+            </p>
+          )}
         </div>
       </div>
       <Button className=" w-1/2 mx-auto mb-4 bg-black">Comprar</Button>

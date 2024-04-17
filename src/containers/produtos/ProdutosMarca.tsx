@@ -3,7 +3,7 @@ import ProductCard from "../../components/productsCard/ProductCard";
 import PRODUTOS from '../../produtos'
 
 interface ProdutosMarcaProps {
-    marcaSelecionada: string
+    marcaSelecionada?: string 
     
 }
 
