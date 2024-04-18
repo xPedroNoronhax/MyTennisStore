@@ -8,25 +8,22 @@ const Nav = () => {
   const [open, setOpen] = useState(false);
   return (
     <div className="shadow-md w-full fixed top-0 left-0 z-50 bg-white">
-        
       <div className="flex items-center md:justify-around bg-white py-4 md:px-10 px-7 relative">
         <div
           className=" w-1/3 font-bold text-2xl cursor-pointer flex items-center  font-[Poppins] 
       text-gray-800"
         >
           <span className="text-3xl text-indigo-600 mr-1 pt-2">
-            <NavLink to='/'>
+            <NavLink to="/">
               <Logo />
             </NavLink>
           </span>
-         
         </div>
 
         <div
           onClick={() => setOpen(!open)}
           className=" text-3xl absolute right-8 top-6 cursor-pointer md:hidden mt-4"
         >
-            
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
@@ -46,25 +43,17 @@ const Nav = () => {
             open ? "top-20 " : "top-[-490px]"
           }`}
         >
-          <NavLink to="/babolat">
-            <MenuItem item="Babolat" />
-          </NavLink>
-          <NavLink to='/head'>
-            <MenuItem item="Head" />
-          </NavLink>
-          <NavLink to="/yonex">
-            <MenuItem item="Yonex" />
-          </NavLink>
-          <NavLink to='/wilson'>
-            <MenuItem item="Wilson" />
-          </NavLink>
+          <MenuItem item="Babolat" />
+
+          <MenuItem item="Head" />
+
+          <MenuItem item="Yonex" />
+
+          <MenuItem item="Wilson" />
         </ul>
         <CartUser />
-        
       </div>
-      
     </div>
-    
   );
 };
 

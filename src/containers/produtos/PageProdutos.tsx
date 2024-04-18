@@ -1,12 +1,15 @@
-
+import { useParams } from "react-router-dom";
 import ProdutosMarca from "./ProdutosMarca";
 
 interface PageProdutosProps {
-  marcaSelecionada?: string ;
+  marcaSelecionada?: string;
   marca?: string;
+  brand?: string;
 }
 
-const PageProdutos: React.FC<PageProdutosProps> = ({ marcaSelecionada }) => {
+const PageProdutos: React.FC<PageProdutosProps> = () => {
+  const { brand } = useParams<{ brand: string }>();
+  const marcaSelecionada = brand?.toUpperCase();
   const marca = marcaSelecionada
     ? marcaSelecionada.charAt(0).toUpperCase() +
       marcaSelecionada.slice(1).toLowerCase()
