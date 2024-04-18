@@ -20,6 +20,8 @@ const ProdutosMarca: React.FC<ProdutosMarcaProps> = ({ marcaSelecionada }) => {
                 productName={produto.modelo}
                 productImage={produto.img}
                 productPrice={produto.preco}
+                productId={produto.id}
+                
               />
             ))}
         </div>

@@ -1,20 +1,28 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   productName?: string;
   productImage?: string;
   productPrice?: number;
+  productId: number;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   productName,
   productImage,
   productPrice,
+  productId,
 }) => {
   return (
     <div className="w-[240px] border-solid border-2 border-slate-800 rounded-2xl flex flex-col md:mb-0 mb-4 ">
-      <img src={productImage} className="h-48 flex mb-[32px] cursor-pointer " />
+      <Link to={`/product/${productId}`}>
+        <img
+          src={productImage}
+          className="h-48 flex mb-[32px] cursor-pointer "
+        />
+      </Link>
       <div className="mb-2">
         <h2 className="font-bold cursor-pointer">{productName}</h2>
         <p className="font-semibold">{`R$ ${productPrice?.toFixed(2)}`}</p>

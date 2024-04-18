@@ -7,14 +7,15 @@ import PageProdutos from "./containers/produtos/PageProdutos";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./components/router/Root";
 import Home from "./pages.tsx/Home";
-
+import InfoProduct from "./containers/info_product/InfoProduct";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     children: [
       { index: true, element: <Home /> },
-     {path: "/:brand", element: <PageProdutos/>}
+      { path: "/:brand", element: <PageProdutos /> },
+      {path: "/product/:productId", element: <InfoProduct/>}
     ],
   },
 ]);
