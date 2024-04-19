@@ -1,39 +1,47 @@
 import Button from "react-bootstrap/Button";
 import ProductDetails from "../product_details/ProductDetails";
-import Produtos from "../produtos/Produtos";
+
 import { useParams } from "react-router-dom";
 import produtos from "../../produtos";
+import ProdutosRandom from "../produtos/ProdutosRandom";
 
-interface InfoProductProps{
-  marca:string;
-  modelo:string;
-  
+interface InfoProductProps {
+  id: number;
+  marca: string;
+  modelo: string;
+  preco: number;
+  descricao: string;
+  img: string;
+  peso: string;
+  padrao_cordas: string;
+  tamanho_cabeca: string;
 }
 
-const InfoProduct:React.FC<InfoProductProps> = () => {
-  const { productId } = useParams(); 
+const InfoProduct: React.FC<InfoProductProps> = () => {
+  const { productId } = useParams();
 
+  if (productId === undefined) {
+    console.log("produto nao existe");
+  }
 
   const produto = produtos.find((item) =>
-    item.modelos.some((modelo) => modelo.id === parseInt(productId))
+    item.modelos.some((modelo) => modelo.id === parseInt(productId ?? ""))
   );
-
 
   if (!produto) {
     return <div>Produto não encontrado</div>;
   }
 
+  const modeloEncontrado = produto.modelos.find(
+    (modelo) => modelo.id === parseInt(productId ?? "")
+  );
 
-  const {
-    marca,
-    modelo,
-    preco,
-    descricao,
-    img,
-    peso,
-    padrao_cordas,
-    tamanho_cabeca,
-  } = produto.modelos.find((modelo) => modelo.id === parseInt(productId));
+  if (!modeloEncontrado) {
+    return <div>Modelo não encontrado</div>;
+  }
+  const { marca, modelo, preco, img, peso, padrao_cordas, tamanho_cabeca } =
+    modeloEncontrado;
+
   return (
     <div className="mt-[80px] flex flex-col ">
       <div className="md:flex md:flex-row flex-col ">
@@ -72,13 +80,13 @@ const InfoProduct:React.FC<InfoProductProps> = () => {
       <ProductDetails
         marca={marca}
         modelo={modelo}
-        descricao={descricao}
         peso={peso}
         tamanho_cabeca={tamanho_cabeca}
         padrao_cordas={padrao_cordas}
+        descricao={""}
       />
       <div className="mt-[80px] md:inline hidden">
-        <Produtos title="Produtos similares" />
+        <ProdutosRandom title="Produtos similares" />
       </div>
     </div>
   );

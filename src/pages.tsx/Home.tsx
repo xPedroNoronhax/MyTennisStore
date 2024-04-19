@@ -1,15 +1,15 @@
+import Banner from "../containers/banner/Banner";
+import ProdutosRandom from "../containers/produtos/ProdutosRandom";
 
-import Banner from '../containers/banner/Banner'
-import Produtos from '../containers/produtos/Produtos'
 
 const Home = () => {
   return (
     <>
-    <Banner/>
-    <Produtos title='Mais vendidos'/>
-    <Produtos title='Têndencias'/>
+      <Banner />
+      <ProdutosRandom title='Mais vendidos'/>
+      <ProdutosRandom title='Têndencias'/>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

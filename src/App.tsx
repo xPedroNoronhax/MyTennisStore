@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./components/router/Root";
 import Home from "./pages.tsx/Home";
 import InfoProduct from "./containers/info_product/InfoProduct";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -15,13 +16,32 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "/:brand", element: <PageProdutos /> },
-      {path: "/product/:productId", element: <InfoProduct/>}
+      {
+        path: "/product/:productId",
+        element: (
+          <InfoProduct
+            id={0}
+            marca={""}
+            modelo={""}
+            preco={0}
+            descricao={""}
+            img={""}
+            peso={""}
+            padrao_cordas={""}
+            tamanho_cabeca={""}
+          />
+        ),
+      },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <RouterProvider router={router}/>
+      
+   
+  );
 }
 
 export default App;
