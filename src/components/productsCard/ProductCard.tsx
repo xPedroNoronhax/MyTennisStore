@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { CartState } from "../../context/Context";
 
 interface ProductCardProps {
   productName?: string;
@@ -15,6 +16,39 @@ const ProductCard: React.FC<ProductCardProps> = ({
   productPrice,
   productId,
 }) => {
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState()!;
+
+  const [alertMessage, setAlertMessage] = useState("");
+
+  const product = {
+    modelo: productName,
+    img: productImage,
+    preco: productPrice,
+    id: productId,
+  };
+
+  const addToCart = () => {
+    const alreadyInCart = cart.some(
+      (item: { id: number }) => item.id === product.id
+    );
+
+    if (alreadyInCart) {
+      setAlertMessage("Este produto já está no carrinho!");
+    } else {
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: product,
+      });
+
+      setTimeout(() => {
+        setAlertMessage("");
+      }, 3000);
+    }
+  };
+
   return (
     <div className="w-[240px] border-solid border-2 border-slate-800 rounded-2xl flex flex-col md:mb-0 mb-4 ">
       <Link to={`/product/${productId}`}>
@@ -50,7 +84,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </div>
       </div>
-      <Button className=" w-1/2 mx-auto mb-4 bg-black">Comprar</Button>
+
+      {alertMessage ? (
+        <Button className=" w-1/2 mx-auto mb-4 " variant="danger">
+          Produto ja adicionado
+        </Button>
+      ) : (
+        <Button onClick={addToCart} className=" w-1/2 mx-auto mb-4 bg-black">
+          + Carrinho
+        </Button>
+      )}
     </div>
   );
 };

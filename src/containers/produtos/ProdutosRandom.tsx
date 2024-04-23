@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import ProductCardRandom from "../../components/productsCard/ProductCardRandom";
 import produtos from "../../produtos";
 
@@ -24,6 +24,7 @@ interface ProdutosRandomProps {
   title: string;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 const ProdutosRandom: React.FC<ProdutosRandomProps> = ({ title }) => {
   function produtoAleatorio(produtos: Marca[]) {
     const marcaAleatoria =
@@ -55,4 +56,5 @@ const ProdutosRandom: React.FC<ProdutosRandomProps> = ({ title }) => {
   );
 };
 
-export default ProdutosRandom;
+// eslint-disable-next-line react-refresh/only-export-components
+export default memo(ProdutosRandom);

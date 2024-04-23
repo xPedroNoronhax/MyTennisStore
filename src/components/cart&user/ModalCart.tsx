@@ -1,12 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { CartState } from "../../context/Context";
+import { FaRegTrashAlt } from "react-icons/fa";
+
+interface Product {
+  id: number;
+  modelo: string;
+  qty: number;
+  preco: number;
+}
 
 function ModalCart() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
+
+  const [total, setTotal] = useState<number>(0); // Initialize total to 0
+
+  useEffect(() => {
+    // Calculate total price whenever cart changes
+    setTotal(cart.reduce((acc, curr) => acc + Number(curr.preco), 0));
+  }, [cart]);
 
   return (
     <>
@@ -32,15 +53,21 @@ function ModalCart() {
               />
             </svg>
           </i>
-          <div className="absolute top-0 left-6 w-5 h-5 bg-black text-white flex items-center justify-center rounded-full">
-            3
-          </div>
+          {cart.length > 0 && (
+            <div className="absolute top-0 left-6 w-5 h-5 bg-black text-white flex items-center justify-center rounded-full">
+              {cart.length}
+            </div>
+          )}
         </div>
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Meu carrinho - 3 item(s) adicionado</Modal.Title>
+          <Modal.Title>
+            {cart.length > 0
+              ? `Meu carrinho - ${cart.length} item(s) adicionados`
+              : "Carrinho está vazio."}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <table className="flex flex-col">
@@ -52,31 +79,39 @@ function ModalCart() {
               </tr>
             </thead>
             <tbody className="flex flex-col">
-              <tr className="flex justify-evenly">
-                <td className="flex justify-start w-1/3">Raquete</td>
-                <td className="flex justify-center  w-1/3">2</td>
-                <td className="flex  justify-start  pl-6 w-1/3">R$ 1000,00</td>
-              </tr>
-              <tr className="flex justify-evenly">
-                <td className="flex justify-start w-1/3">Raquete</td>
-                <td className="flex justify-center  w-1/3">2</td>
-                <td className="flex  justify-start  pl-6 w-1/3">R$ 1000,00</td>
-              </tr>
-              <tr className="flex justify-evenly">
-                <td className="flex justify-start w-1/3">Raquete</td>
-                <td className="flex justify-center  w-1/3">2</td>
-                <td className="flex  justify-start  pl-6 w-1/3">R$ 1000,00</td>
-              </tr>
-              
-              <tfoot  className="mt-1 border-t-2 border-black">
+              {cart.map((prod: Product) => (
+                <tr key={prod.id} className="flex justify-evenly">
+                  <td className="flex justify-start w-1/3">{prod.modelo}</td>
+                  <td className="flex justify-center w-1/3">{prod.qty}</td>
+                  <td className="flex justify-start pl-6 w-1/3">
+                    R$ {prod.preco.toFixed(2)}
+                  </td>
+                  <td className="pt-1 cursor-pointer">
+                    {
+                      <FaRegTrashAlt
+                        onClick={() =>
+                          dispatch({
+                            type: "REMOVE_FROM_CART",
+                            payload: prod,
+                          })
+                        }
+                      />
+                    }
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot className="mt-1 border-t-2 border-black">
               <tr className="flex mt-1 justify-evenly w-full">
                 <th className="flex justify-start w-1/3">Total</th>
-                <th className="flex justify-center  w-1/3" >6</th>
-                <th className="flex  justify-start  pl-6 w-1/3"> R$ 6000,00</th>
+                <th className="flex justify-center pr-4 w-1/3">
+                  {cart.length}
+                </th>
+                <th className="flex justify-start pl-[10px] w-1/3">
+                  R$ {total.toFixed(2)} {/* Use toFixed(2) here */}
+                </th>
               </tr>
             </tfoot>
-             
-            </tbody>
           </table>
         </Modal.Body>
         <Modal.Footer>
