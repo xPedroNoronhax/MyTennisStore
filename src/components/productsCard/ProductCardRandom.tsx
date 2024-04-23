@@ -40,7 +40,7 @@ const ProductCardRandom: React.FC<RandomProductCardProps> = React.memo(
 
         setTimeout(() => {
           setAlertMessage("");
-        }, 3000);
+        }, 2000);
       }
     };
     return (

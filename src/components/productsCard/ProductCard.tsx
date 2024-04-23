@@ -45,7 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       setTimeout(() => {
         setAlertMessage("");
-      }, 3000);
+      }, 2000);
     }
   };
 

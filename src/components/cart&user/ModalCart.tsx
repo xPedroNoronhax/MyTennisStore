@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { CartState } from "../../context/Context";
@@ -22,12 +22,39 @@ function ModalCart() {
     dispatch,
   } = CartState();
 
+  let itemsQTD = cart.reduce((acc, curr) => acc + curr.qty, 0)
+
   const [total, setTotal] = useState<number>(0); // Initialize total to 0
 
   useEffect(() => {
     // Calculate total price whenever cart changes
-    setTotal(cart.reduce((acc, curr) => acc + Number(curr.preco), 0));
+    setTotal(
+      cart.reduce((acc, curr) => acc + Number(curr.preco * curr.qty), 0)
+    );
   }, [cart]);
+
+  const handleIncrement = (id: number) => {
+    dispatch({
+      type: "CHANGE_CART_QTY",
+      payload: { id, qty: (cart.find((item) => item.id === id)?.qty || 0) + 1 },
+    });
+  };
+
+  const handleDecrement = (id: number) => {
+    const itemQty = cart.find((item) => item.id === id)?.qty || 0;
+    const newQty = itemQty - 1;
+    if (newQty <= 0) {
+      dispatch({
+        type: "REMOVE_FROM_CART",
+        payload: { id },
+      });
+    } else {
+      dispatch({
+        type: "CHANGE_CART_QTY",
+        payload: { id, qty: newQty },
+      });
+    }
+  };
 
   return (
     <>
@@ -65,7 +92,7 @@ function ModalCart() {
         <Modal.Header closeButton>
           <Modal.Title>
             {cart.length > 0
-              ? `Meu carrinho - ${cart.length} item(s) adicionados`
+              ? `Meu carrinho - ${itemsQTD} item(s) adicionados`
               : "Carrinho está vazio."}
           </Modal.Title>
         </Modal.Header>
@@ -82,7 +109,13 @@ function ModalCart() {
               {cart.map((prod: Product) => (
                 <tr key={prod.id} className="flex justify-evenly">
                   <td className="flex justify-start w-1/3">{prod.modelo}</td>
-                  <td className="flex justify-center w-1/3">{prod.qty}</td>
+                  <td className="flex justify-center w-1/3 gap-x-2">
+                    <button onClick={() => handleDecrement(prod.id)}>-</button>{" "}
+                    {prod.qty}
+                    <button onClick={() => handleIncrement(prod.id)}>
+                      +
+                    </button>{" "}
+                  </td>
                   <td className="flex justify-start pl-6 w-1/3">
                     R$ {prod.preco.toFixed(2)}
                   </td>
@@ -105,7 +138,7 @@ function ModalCart() {
               <tr className="flex mt-1 justify-evenly w-full">
                 <th className="flex justify-start w-1/3">Total</th>
                 <th className="flex justify-center pr-4 w-1/3">
-                  {cart.length}
+                  {cart.reduce((acc, curr) => acc + curr.qty, 0)}
                 </th>
                 <th className="flex justify-start pl-[10px] w-1/3">
                   R$ {total.toFixed(2)} {/* Use toFixed(2) here */}

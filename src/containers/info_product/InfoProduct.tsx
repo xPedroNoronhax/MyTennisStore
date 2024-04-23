@@ -1,9 +1,10 @@
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import ProductDetails from "../product_details/ProductDetails";
-
 import { useParams } from "react-router-dom";
 import produtos from "../../produtos";
 import ProdutosRandom from "../produtos/ProdutosRandom";
+import { CartState } from "../../context/Context";
 
 interface InfoProductProps {
   id: number;
@@ -20,9 +21,12 @@ interface InfoProductProps {
 const InfoProduct: React.FC<InfoProductProps> = () => {
   const { productId } = useParams();
 
-  if (productId === undefined) {
-    console.log("produto nao existe");
-  }
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState()!;
+
+  const [alertMessage, setAlertMessage] = useState("");
 
   const produto = produtos.find((item) =>
     item.modelos.some((modelo) => modelo.id === parseInt(productId ?? ""))
@@ -39,8 +43,35 @@ const InfoProduct: React.FC<InfoProductProps> = () => {
   if (!modeloEncontrado) {
     return <div>Modelo não encontrado</div>;
   }
+
   const { marca, modelo, preco, img, peso, padrao_cordas, tamanho_cabeca } =
     modeloEncontrado;
+
+  const product = {
+    modelo: modelo,
+    img: img,
+    preco: preco,
+    id: parseInt(productId ?? ""),
+  };
+
+  const addToCart = () => {
+    const alreadyInCart = cart.some(
+      (item: { id: number }) => item.id === product.id
+    );
+
+    if (alreadyInCart) {
+      setAlertMessage("Este produto já está no carrinho!");
+    } else {
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: product,
+      });
+
+      setTimeout(() => {
+        setAlertMessage("");
+      }, 2000);
+    }
+  };
 
   return (
     <div className="mt-[80px] flex flex-col ">
@@ -63,7 +94,7 @@ const InfoProduct: React.FC<InfoProductProps> = () => {
             totam excepturi numquam repellendus perferendis delectus dolorum
             aperiam repellat rerum voluptatibus.
           </p>
-          <div className="flex gap-x-[16px] items-center md:mx-0 mx-auto">
+          {/* <div className="flex gap-x-[16px] items-center md:mx-0 mx-auto">
             <button className="w-[40px] rounded-full bg-slate-300 border-1 border-black">
               <p className="text-lg font-black p-1">-</p>
             </button>
@@ -71,10 +102,23 @@ const InfoProduct: React.FC<InfoProductProps> = () => {
             <button className="w-[40px] rounded-full bg-slate-300 border-1 border-black">
               <p className="text-lg font-black p-1">+</p>
             </button>
-          </div>
-          <Button className="bg-black w-[240px] mt-[64px] md:mx-0 mx-auto">
-            Comprar
-          </Button>
+          </div> */}
+
+          {alertMessage ? (
+            <Button
+              className="w-[240px] mt-[64px] md:mx-0 mx-auto "
+              variant="danger"
+            >
+              Produto já adicionado
+            </Button>
+          ) : (
+            <Button
+              onClick={addToCart}
+              className="bg-black w-[240px] mt-[64px] md:mx-0 mx-auto"
+            >
+              + Carrinho
+            </Button>
+          )}
         </div>
       </div>
       <ProductDetails
