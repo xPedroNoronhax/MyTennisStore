@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import ProductDetails from "../product_details/ProductDetails";
 import { useParams } from "react-router-dom";
@@ -66,12 +66,21 @@ const InfoProduct: React.FC<InfoProductProps> = () => {
         type: "ADD_TO_CART",
         payload: product,
       });
+    }
+  };
 
-      setTimeout(() => {
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    if (alertMessage) {
+      timeoutId = setTimeout(() => {
         setAlertMessage("");
       }, 2000);
     }
-  };
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [alertMessage]);
 
   return (
     <div className="mt-[80px] flex flex-col ">

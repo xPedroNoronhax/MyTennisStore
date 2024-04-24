@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { CartState } from "../../context/Context";
@@ -43,11 +43,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
         payload: product,
       });
 
-      setTimeout(() => {
-        setAlertMessage("");
-      }, 2000);
     }
   };
+
+  useEffect(() =>{
+    let timeoutId: NodeJS.Timeout;
+
+    if(alertMessage) {
+      timeoutId = setTimeout(() => {
+        setAlertMessage("");
+      } ,2000)
+    }
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [alertMessage])
 
   return (
     <div className="w-[240px] border-solid border-2 border-slate-800 rounded-2xl flex flex-col md:mb-0 mb-4 ">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { CartState } from "../../context/Context";
@@ -38,11 +38,21 @@ const ProductCardRandom: React.FC<RandomProductCardProps> = React.memo(
           payload: product,
         });
 
-        setTimeout(() => {
-          setAlertMessage("");
-        }, 2000);
       }
     };
+
+    useEffect(() =>{
+      let timeOutId: NodeJS.TimeOut;
+
+      if(alertMessage){
+        timeOutId = setTimeout(() => {
+          setAlertMessage("");
+        },2000)
+      }
+      return () => {
+        clearTimeout(timeOutId)
+      }
+    }, [alertMessage])
     return (
       <div className="w-[240px] border-solid border-2 border-slate-800 rounded-2xl flex flex-col md:mb-0 mb-4">
         <Link to={`/product/${product.id}`}>

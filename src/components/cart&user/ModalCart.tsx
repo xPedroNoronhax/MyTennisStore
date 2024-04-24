@@ -108,15 +108,15 @@ function ModalCart() {
             <tbody className="flex flex-col">
               {cart.map((prod: Product) => (
                 <tr key={prod.id} className="flex justify-evenly">
-                  <td className="flex justify-start w-1/3">{prod.modelo}</td>
-                  <td className="flex justify-center w-1/3 gap-x-2">
-                    <button onClick={() => handleDecrement(prod.id)}>-</button>{" "}
-                    {prod.qty}
+                  <td className="flex justify-start w-1/3 row-auto">{prod.modelo}</td>
+                  <td className="flex justify-center w-1/3 gap-x-2 items-center">
+                    <button className="" onClick={() => handleDecrement(prod.id)}>-</button>{" "}
+                    <div className="">{prod.qty}</div>
                     <button onClick={() => handleIncrement(prod.id)}>
                       +
                     </button>{" "}
                   </td>
-                  <td className="flex justify-start pl-6 w-1/3">
+                  <td className="flex justify-start pl-6 w-1/3 row-auto">
                     R$ {prod.preco.toFixed(2)}
                   </td>
                   <td className="pt-1 cursor-pointer">

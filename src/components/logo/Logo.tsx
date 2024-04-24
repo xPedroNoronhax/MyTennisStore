@@ -1,10 +1,11 @@
 import logo from '../../assets/logo.png'
 const Logo = () => {
   return (
-    <div className="w-[138px] rounded-[90px] py-[18px] bg-slate-100 font-bold mr-[66px] flex  ">
-    
-        <img className=' ml-5 h-[50px]' src={logo} alt="" />
-    </div>
+    <div className="w-full rounded-[90px] py-[18px] bg-slate-100 font-bold   flex">
+    <img className='ml-5 h-[50px] lg:h-[70px]' src={logo} alt="Logo" />
+  </div>
+
+
   )
 }
 
