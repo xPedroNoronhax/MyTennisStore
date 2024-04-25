@@ -22,17 +22,18 @@ function ModalCart() {
     dispatch,
   } = CartState();
 
-  let itemsQTD = cart.reduce((acc, curr) => acc + curr.qty, 0)
+  let itemsQTD = cart.reduce((acc, curr) => acc + curr.qty, 0);
 
-  const [total, setTotal] = useState<number>(0); // Initialize total to 0
+  const [total, setTotal] = useState<number>(0); 
 
+  //calcular o preço total quando for adicionado items ao carrinho
   useEffect(() => {
-    // Calculate total price whenever cart changes
     setTotal(
       cart.reduce((acc, curr) => acc + Number(curr.preco * curr.qty), 0)
     );
   }, [cart]);
 
+  // aumentar a quantidade quando for do mesmo produto
   const handleIncrement = (id: number) => {
     dispatch({
       type: "CHANGE_CART_QTY",
@@ -40,6 +41,7 @@ function ModalCart() {
     });
   };
 
+  //diminuir a quantidade quando for do mesmo produto
   const handleDecrement = (id: number) => {
     const itemQty = cart.find((item) => item.id === id)?.qty || 0;
     const newQty = itemQty - 1;
@@ -55,6 +57,11 @@ function ModalCart() {
       });
     }
   };
+
+  
+  function formatarPreco(preco) {
+    return "R$ " + preco.toFixed(2).replace(".", ",");
+  }
 
   return (
     <>
@@ -108,16 +115,23 @@ function ModalCart() {
             <tbody className="flex flex-col">
               {cart.map((prod: Product) => (
                 <tr key={prod.id} className="flex justify-evenly">
-                  <td className="flex justify-start w-1/3 row-auto">{prod.modelo}</td>
+                  <td className="flex justify-start w-1/3 row-auto">
+                    {prod.modelo}
+                  </td>
                   <td className="flex justify-center w-1/3 gap-x-2 items-center">
-                    <button className="" onClick={() => handleDecrement(prod.id)}>-</button>{" "}
+                    <button
+                      className=""
+                      onClick={() => handleDecrement(prod.id)}
+                    >
+                      -
+                    </button>{" "}
                     <div className="">{prod.qty}</div>
                     <button onClick={() => handleIncrement(prod.id)}>
                       +
                     </button>{" "}
                   </td>
                   <td className="flex justify-start pl-6 w-1/3 row-auto">
-                    R$ {prod.preco.toFixed(2)}
+                    {formatarPreco(prod.preco)}
                   </td>
                   <td className="pt-1 cursor-pointer">
                     {
@@ -141,7 +155,7 @@ function ModalCart() {
                   {cart.reduce((acc, curr) => acc + curr.qty, 0)}
                 </th>
                 <th className="flex justify-start pl-[10px] w-1/3">
-                  R$ {total.toFixed(2)} {/* Use toFixed(2) here */}
+                  {formatarPreco(total)}
                 </th>
               </tr>
             </tfoot>

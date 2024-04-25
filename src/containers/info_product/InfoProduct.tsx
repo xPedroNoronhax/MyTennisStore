@@ -19,6 +19,8 @@ interface InfoProductProps {
 }
 
 const InfoProduct: React.FC<InfoProductProps> = () => {
+
+  //utilizando useParams para mostrar o id do produto na url, sendo usado para renderizar esse componente que mostra dados especificos do produto
   const { productId } = useParams();
 
   const {

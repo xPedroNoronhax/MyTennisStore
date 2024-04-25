@@ -7,6 +7,8 @@ import Pure from "../../assets/bannerPureAero.jpg";
 import Ezone from "../../assets/bannerEzone.jpg";
 
 function Banner() {
+
+  //carrousel de imagem que esta na home.
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex:number) => {

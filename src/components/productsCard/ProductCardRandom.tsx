@@ -37,22 +37,25 @@ const ProductCardRandom: React.FC<RandomProductCardProps> = React.memo(
           type: "ADD_TO_CART",
           payload: product,
         });
-
       }
     };
 
-    useEffect(() =>{
+    useEffect(() => {
       let timeOutId: NodeJS.TimeOut;
 
-      if(alertMessage){
+      if (alertMessage) {
         timeOutId = setTimeout(() => {
           setAlertMessage("");
-        },2000)
+        }, 2000);
       }
       return () => {
-        clearTimeout(timeOutId)
-      }
-    }, [alertMessage])
+        clearTimeout(timeOutId);
+      };
+    }, [alertMessage]);
+
+    function formatarPreco(preco) {
+      return "R$ " + preco.toFixed(2).replace(".", ",");
+    }
     return (
       <div className="w-[240px] border-solid border-2 border-slate-800 rounded-2xl flex flex-col md:mb-0 mb-4">
         <Link to={`/product/${product.id}`}>
@@ -64,7 +67,9 @@ const ProductCardRandom: React.FC<RandomProductCardProps> = React.memo(
         </Link>
         <div className="mb-2">
           <h2 className="font-bold cursor-pointer">{product.modelo}</h2>
-          <p className="font-semibold">{`R$ ${product.preco?.toFixed(2)}`}</p>
+          <p className="font-semibold">{`${formatarPreco(
+            product.preco
+          )}`}</p>
           <div className="flex justify-center">
             <i>
               <svg
@@ -73,7 +78,7 @@ const ProductCardRandom: React.FC<RandomProductCardProps> = React.memo(
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-6 h-6 mr-2"
               >
                 <path
                   strokeLinecap="round"
@@ -84,7 +89,7 @@ const ProductCardRandom: React.FC<RandomProductCardProps> = React.memo(
             </i>
             {typeof product.preco === "number" && (
               <p>
-                Até 10 x de {`${(+product.preco.toFixed(2) / 10).toFixed(2)} `}
+                Até 10 x de {`${formatarPreco(product.preco/10)} `}
               </p>
             )}
           </div>

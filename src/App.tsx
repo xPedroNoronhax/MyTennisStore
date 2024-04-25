@@ -46,16 +46,3 @@ function App() {
 
 export default App;
 
-// {/* <div className="max-w-1440 ">
-//       <Header />
-//       {/* Main Page */}
-//       <main>
-//         <Searcher />
-//         {/* <Banner />
-//         <Produtos title="Mais vendidos" />
-//         <Produtos title="Tendências" /> */}
-//         <PageProdutos marcaSelecionada="WILSON"  />
-//         {/* <InfoProduct/> */}
-//         <Footer />
-//       </main>
-//     </div> */}

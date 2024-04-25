@@ -15,13 +15,12 @@ const Nav = () => {
     }
   };
 
-  // Função para lidar com o clique em um item de menu
   const handleMenuItemClick = () => {
-    setOpen(false); // Fecha o menu quando um item é clicado
+    setOpen(false); 
   };
 
   useEffect(() => {
-    // Adiciona o evento de clique fora do menu quando o menu está aberto
+    
     if (open) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
@@ -62,7 +61,7 @@ const Nav = () => {
 
        <div  >
          
-            <ul className={`md:flex   md:pb-0 mt-3  md:w-full w-screen justify-center  lg:mr-[400px]  bg-white  pb-12 absolute md:static  md:z-auto z-10 left-0  md:pl-0 pl-9 transition-all duration-500 ease-in ${
+            <ul className={`md:flex   md:pb-0 mt-3  md:w-full w-screen justify-center  lg:mr-[400px]  bg-white    md:border-none border-b-2 border-lime-500 pb-12 absolute md:static  md:z-auto z-10 left-0  md:pl-0 pl-9 transition-all duration-500 ease-in ${
               open ? "top-20 " : "top-[-490px]"
             }`} ref={menuRef}>
               <MenuItem item="Babolat" onClick={handleMenuItemClick} />

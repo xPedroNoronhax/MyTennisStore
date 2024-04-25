@@ -30,7 +30,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
     id: productId,
   };
 
+
   const addToCart = () => {
+    //verificando se o item ja esta no carrinho
     const alreadyInCart = cart.some(
       (item: { id: number }) => item.id === product.id
     );
@@ -38,6 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     if (alreadyInCart) {
       setAlertMessage("Este produto já está no carrinho!");
     } else {
+      //se o produto nao estiver, adicionamos
       dispatch({
         type: "ADD_TO_CART",
         payload: product,
@@ -45,6 +48,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
     }
   };
+
+  //corrigindo o bug de quando o produto ja estava no carrinho, com o useEffect, o alertMesssage só acontece de fato quando o produto estiver no carrinho, só sendo possivel observar o alertMessage junto ao botão.
 
   useEffect(() =>{
     let timeoutId: NodeJS.Timeout;
@@ -59,6 +64,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   }, [alertMessage])
 
+  function formatarPreco(preco) {
+    
+    return "R$ " + preco.toFixed(2).replace(".", ",");
+  }
+
   return (
     <div className="w-[240px] border-solid border-2 border-slate-800 rounded-2xl flex flex-col md:mb-0 mb-4 ">
       <Link to={`/product/${productId}`}>
@@ -69,7 +79,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </Link>
       <div className="mb-2">
         <h2 className="font-bold cursor-pointer">{productName}</h2>
-        <p className="font-semibold">{`R$ ${productPrice?.toFixed(2)}`}</p>
+        <p className="font-semibold">{`${formatarPreco(productPrice)}`}</p>
         <div className="flex justify-center">
           <i>
             <svg
@@ -78,7 +88,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6"
+              className="w-6 h-6 mr-2"
             >
               <path
                 strokeLinecap="round"
@@ -89,7 +99,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </i>
           {typeof productPrice === "number" && (
             <p>
-              Até 10 x de {`${(+productPrice.toFixed(2) / 10).toFixed(2)} `}
+              Até 10 x de {`${formatarPreco(productPrice / 10)} `}
             </p>
           )}
         </div>

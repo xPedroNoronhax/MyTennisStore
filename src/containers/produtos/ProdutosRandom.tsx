@@ -17,14 +17,14 @@ interface Modelo {
 interface Marca {
   marca: string;
   modelos: Modelo[];
-  // Outros campos se houver
+  
 }
 
 interface ProdutosRandomProps {
   title: string;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
+
 const ProdutosRandom: React.FC<ProdutosRandomProps> = ({ title }) => {
   function produtoAleatorio(produtos: Marca[]) {
     const marcaAleatoria =
@@ -56,5 +56,5 @@ const ProdutosRandom: React.FC<ProdutosRandomProps> = ({ title }) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
+
 export default memo(ProdutosRandom);

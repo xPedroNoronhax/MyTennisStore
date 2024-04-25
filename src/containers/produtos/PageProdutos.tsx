@@ -8,6 +8,8 @@ interface PageProdutosProps {
 }
 
 const PageProdutos: React.FC<PageProdutosProps> = () => {
+
+  //useParams aqui esta sendo usado para mostrar o produto de determinada marca, nesse caso entre Babolat,Head,Yonex e Wilson.
   const { brand } = useParams<{ brand: string }>();
   const marcaSelecionada = brand?.toUpperCase();
   const marca = marcaSelecionada

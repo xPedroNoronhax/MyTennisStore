@@ -19,7 +19,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       <NavLink
         to={`/${item.toLowerCase()}`}
         className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
-        onClick={handleClick} // Adicionando onClick ao NavLink
+        onClick={handleClick} 
       >
         {item}
       </NavLink>
