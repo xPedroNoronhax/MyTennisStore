@@ -19,7 +19,6 @@ interface InfoProductProps {
 }
 
 const InfoProduct: React.FC<InfoProductProps> = () => {
-
   //utilizando useParams para mostrar o id do produto na url, sendo usado para renderizar esse componente que mostra dados especificos do produto
   const { productId } = useParams();
 
@@ -84,6 +83,10 @@ const InfoProduct: React.FC<InfoProductProps> = () => {
     };
   }, [alertMessage]);
 
+  function formatarPreco(preco) {
+    return "R$ " + preco.toFixed(2).replace(".", ",");
+  }
+
   return (
     <div className="mt-[80px] flex flex-col ">
       <div className="md:flex md:flex-row flex-col ">
@@ -97,7 +100,7 @@ const InfoProduct: React.FC<InfoProductProps> = () => {
             {modelo}
           </h3>
           <h4 className="font-semibold text-2xl md:text-left">
-            R${preco.toFixed(2)}
+            {formatarPreco(preco)}
           </h4>
           <p className="font-normal text-base md:text-left">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur
