@@ -1,32 +1,10 @@
-import React, { memo } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import React from "react";
 import ProductCardRandom from "../../components/productsCard/ProductCardRandom";
 import produtos from "../../produtos";
 
-interface Modelo {
-  modelo: string;
-  peso: string;
-  tamanho_cabeca: string;
-  padrao_cordas: string;
-  nivel: string[];
-  estilo: string[];
-  img: string;
-  id: number;
-  preco: number;
-}
-
-interface Marca {
-  marca: string;
-  modelos: Modelo[];
-  
-}
-
-interface ProdutosRandomProps {
-  title: string;
-}
-
-
-const ProdutosRandom: React.FC<ProdutosRandomProps> = ({ title }) => {
-  function produtoAleatorio(produtos: Marca[]) {
+const ProdutosRandom = ({ title }) => {
+  function produtoAleatorio(produtos) {
     const marcaAleatoria =
       produtos[Math.floor(Math.random() * produtos.length)];
     const modeloAleatorio =
@@ -56,5 +34,4 @@ const ProdutosRandom: React.FC<ProdutosRandomProps> = ({ title }) => {
   );
 };
 
-
-export default memo(ProdutosRandom);
+export default React.memo(ProdutosRandom);

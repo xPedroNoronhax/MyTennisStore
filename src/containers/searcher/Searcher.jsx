@@ -1,32 +1,26 @@
-import { useEffect, useState } from "react";
-import produtos from "../../produtos"; 
+import React, { useEffect, useState } from "react";
+import produtos from "../../produtos";
 import { Link, useNavigate } from "react-router-dom";
 
 const Searcher = () => {
-
   const [input, setInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (value) => {
-    // o input vai recebendo as letras colocadas dentro do input
     setInput(value);
-    //aqui toda vez que a uma mudança dentro do input, o flatMap acaba criando um novo array contendo apenas as palavras digitadas dentro do input
     const filteredModels = produtos.flatMap((marca) =>
-      marca.modelos.filter(
-        (modelo) => modelo.modelo.toLowerCase().includes(value.toLowerCase()) // aqui independente se é usado letras maiusculas ou minusculas, conseguimos buscar
+      marca.modelos.filter((modelo) =>
+        modelo.modelo.toLowerCase().includes(value.toLowerCase())
       )
     );
-    //retorna o array modificado com o conteudo dentro do input
     setSearchResults(filteredModels);
   };
 
-  // caso é selecionado um produto, essa funcao limpa o input
   const handleSelectProduct = (productId) => {
     navigate(`/product/${productId}`);
-    setInput(""); 
+    setInput("");
   };
-
 
   useEffect(() => {
     setInput("");
@@ -58,7 +52,7 @@ const Searcher = () => {
           </Link>
         </label>
         <input
-          className=" w-full py-2 px-2 rounded-xl bg-slate-100 focus:outline-none"
+          className="w-full py-2 px-2 rounded-xl bg-slate-100 focus:outline-none"
           type="text"
           placeholder="Busque na loja..."
           value={input}
@@ -67,7 +61,7 @@ const Searcher = () => {
       </form>
 
       {input.length > 0 && (
-        <div className="lg:w-[467px] max-h-[90px] overflow-auto flex bg-slate-100 rounded-xl mx-auto gap-1 border ">
+        <div className="lg:w-[467px] max-h-[90px] overflow-auto flex bg-slate-100 rounded-xl mx-auto gap-1 border">
           <ul className="flex flex-col justify-start items-start">
             {searchResults.map((modelo) => (
               <li

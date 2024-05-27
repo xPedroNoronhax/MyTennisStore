@@ -1,15 +1,6 @@
-interface DetailsProps {
-  tamanho_cabeca: string;
-  modelo: string;
-  peso: string;
-}
+import React from "react";
 
-const Details: React.FC<DetailsProps> = ({
-  
-  tamanho_cabeca,
-  modelo,
-  peso,
-}) => {
+const Details = ({ tamanho_cabeca, modelo, peso }) => {
   return (
     <div className="flex flex-col items-start mt-[56px] md:gap-y-2 gap-y-5 ml-4">
       <h2 className="font-bold text-[24px]">Descrição da Raquete {modelo}</h2>

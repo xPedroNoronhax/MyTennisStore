@@ -3,23 +3,11 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { CartState } from "../../context/Context";
 
-interface ProductCardProps {
-  productName?: string;
-  productImage?: string;
-  productPrice?: number;
-  productId: number;
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({
-  productName,
-  productImage,
-  productPrice,
-  productId,
-}) => {
+const ProductCard = ({ productName, productImage, productPrice, productId }) => {
   const {
     state: { cart },
     dispatch,
-  } = CartState()!;
+  } = CartState();
 
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -30,51 +18,45 @@ const ProductCard: React.FC<ProductCardProps> = ({
     id: productId,
   };
 
-
   const addToCart = () => {
-    //verificando se o item ja esta no carrinho
     const alreadyInCart = cart.some(
-      (item: { id: number }) => item.id === product.id
+      (item) => item.id === product.id
     );
 
     if (alreadyInCart) {
       setAlertMessage("Este produto já está no carrinho!");
     } else {
-      //se o produto nao estiver, adicionamos
       dispatch({
         type: "ADD_TO_CART",
         payload: product,
       });
-
     }
   };
 
-  //corrigindo o bug de quando o produto ja estava no carrinho, com o useEffect, o alertMesssage só acontece de fato quando o produto estiver no carrinho, só sendo possivel observar o alertMessage junto ao botão.
+  useEffect(() => {
+    let timeoutId;
 
-  useEffect(() =>{
-    let timeoutId: NodeJS.Timeout;
-
-    if(alertMessage) {
+    if (alertMessage) {
       timeoutId = setTimeout(() => {
         setAlertMessage("");
-      } ,2000)
+      }, 2000);
     }
     return () => {
-      clearTimeout(timeoutId)
-    }
-  }, [alertMessage])
+      clearTimeout(timeoutId);
+    };
+  }, [alertMessage]);
 
-  function formatarPreco(preco) {
-    
+  const formatarPreco = (preco) => {
     return "R$ " + preco.toFixed(2).replace(".", ",");
-  }
+  };
 
   return (
-    <div className="w-[240px] border-solid border-2 border-slate-800 rounded-2xl flex flex-col md:mb-0 mb-4 ">
+    <div className="w-[240px] border-solid border-2 border-slate-800 rounded-2xl flex flex-col md:mb-0 mb-4">
       <Link to={`/product/${productId}`}>
         <img
           src={productImage}
-          className="h-48 flex mb-[32px] cursor-pointer "
+          alt={productName}
+          className="h-48 flex mb-[32px] cursor-pointer"
         />
       </Link>
       <div className="mb-2">
@@ -98,19 +80,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </svg>
           </i>
           {typeof productPrice === "number" && (
-            <p>
-              Até 10 x de {`${formatarPreco(productPrice / 10)} `}
-            </p>
+            <p>Até 10 x de {`${formatarPreco(productPrice / 10)}`}</p>
           )}
         </div>
       </div>
 
       {alertMessage ? (
-        <Button className=" w-1/2 mx-auto mb-4 " variant="danger">
-          Produto ja adicionado
+        <Button className="w-1/2 mx-auto mb-4" variant="danger">
+          Produto já adicionado
         </Button>
       ) : (
-        <Button onClick={addToCart} className=" w-1/2 mx-auto mb-4 bg-black">
+        <Button onClick={addToCart} className="w-1/2 mx-auto mb-4 bg-black text-white">
           + Carrinho
         </Button>
       )}

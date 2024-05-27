@@ -1,48 +1,38 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { CartState } from "../../context/Context";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-interface Product {
-  id: number;
-  modelo: string;
-  qty: number;
-  preco: number;
-}
-
-function ModalCart() {
-  const [show, setShow] = useState<boolean>(false);
+const ModalCart = () => {
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const {
-    state: { cart },
-    dispatch,
-  } = CartState();
+  const { state, dispatch } = CartState();
 
-  let itemsQTD = cart.reduce((acc, curr) => acc + curr.qty, 0);
+  const { cart } = state;
 
-  const [total, setTotal] = useState<number>(0); 
+  const itemsQTD = cart.reduce((acc, curr) => acc + curr.qty, 0);
 
-  //calcular o preço total quando for adicionado items ao carrinho
+  const [total, setTotal] = useState(0);
+
   useEffect(() => {
-    setTotal(
-      cart.reduce((acc, curr) => acc + Number(curr.preco * curr.qty), 0)
-    );
+    setTotal(cart.reduce((acc, curr) => acc + curr.preco * curr.qty, 0));
   }, [cart]);
 
-  // aumentar a quantidade quando for do mesmo produto
-  const handleIncrement = (id: number) => {
+  const handleIncrement = (id) => {
     dispatch({
       type: "CHANGE_CART_QTY",
-      payload: { id, qty: (cart.find((item) => item.id === id)?.qty || 0) + 1 },
+      payload: {
+        id,
+        qty: (cart.find((item) => item.id === id)?.qty || 0) + 1,
+      },
     });
   };
 
-  //diminuir a quantidade quando for do mesmo produto
-  const handleDecrement = (id: number) => {
+  const handleDecrement = (id) => {
     const itemQty = cart.find((item) => item.id === id)?.qty || 0;
     const newQty = itemQty - 1;
     if (newQty <= 0) {
@@ -58,10 +48,9 @@ function ModalCart() {
     }
   };
 
-  
-  function formatarPreco(preco) {
+  const formatarPreco = (preco) => {
     return "R$ " + preco.toFixed(2).replace(".", ",");
-  }
+  };
 
   return (
     <>
@@ -113,19 +102,14 @@ function ModalCart() {
               </tr>
             </thead>
             <tbody className="flex flex-col">
-              {cart.map((prod: Product) => (
+              {cart.map((prod) => (
                 <tr key={prod.id} className="flex justify-evenly">
                   <td className="flex justify-start w-1/3 row-auto">
                     {prod.modelo}
                   </td>
                   <td className="flex justify-center w-1/3 gap-x-2 items-center">
-                    <button
-                      className=""
-                      onClick={() => handleDecrement(prod.id)}
-                    >
-                      -
-                    </button>{" "}
-                    <div className="">{prod.qty}</div>
+                    <button onClick={() => handleDecrement(prod.id)}>-</button>{" "}
+                    <div>{prod.qty}</div>
                     <button onClick={() => handleIncrement(prod.id)}>
                       +
                     </button>{" "}
@@ -134,16 +118,14 @@ function ModalCart() {
                     {formatarPreco(prod.preco)}
                   </td>
                   <td className="pt-1 cursor-pointer">
-                    {
-                      <FaRegTrashAlt
-                        onClick={() =>
-                          dispatch({
-                            type: "REMOVE_FROM_CART",
-                            payload: prod,
-                          })
-                        }
-                      />
-                    }
+                    <FaRegTrashAlt
+                      onClick={() =>
+                        dispatch({
+                          type: "REMOVE_FROM_CART",
+                          payload: { id: prod.id },
+                        })
+                      }
+                    />
                   </td>
                 </tr>
               ))}
@@ -172,6 +154,6 @@ function ModalCart() {
       </Modal>
     </>
   );
-}
+};
 
 export default ModalCart;

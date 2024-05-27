@@ -1,17 +1,10 @@
+import React from "react";
 import { useParams } from "react-router-dom";
 import ProdutosMarca from "./ProdutosMarca";
 
-interface PageProdutosProps {
-  marcaSelecionada?: string;
-  marca?: string;
-  brand?: string;
-}
-
-const PageProdutos: React.FC<PageProdutosProps> = () => {
-
-  //useParams aqui esta sendo usado para mostrar o produto de determinada marca, nesse caso entre Babolat,Head,Yonex e Wilson.
-  const { brand } = useParams<{ brand: string }>();
-  const marcaSelecionada = brand?.toUpperCase();
+const PageProdutos = () => {
+  const { brand } = useParams();
+  const marcaSelecionada = brand ? brand.toUpperCase() : "";
   const marca = marcaSelecionada
     ? marcaSelecionada.charAt(0).toUpperCase() +
       marcaSelecionada.slice(1).toLowerCase()

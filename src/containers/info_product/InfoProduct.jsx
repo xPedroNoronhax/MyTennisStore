@@ -6,26 +6,13 @@ import produtos from "../../produtos";
 import ProdutosRandom from "../produtos/ProdutosRandom";
 import { CartState } from "../../context/Context";
 
-interface InfoProductProps {
-  id: number;
-  marca: string;
-  modelo: string;
-  preco: number;
-  descricao: string;
-  img: string;
-  peso: string;
-  padrao_cordas: string;
-  tamanho_cabeca: string;
-}
-
-const InfoProduct: React.FC<InfoProductProps> = () => {
-  //utilizando useParams para mostrar o id do produto na url, sendo usado para renderizar esse componente que mostra dados especificos do produto
+const InfoProduct = () => {
   const { productId } = useParams();
 
   const {
     state: { cart },
     dispatch,
-  } = CartState()!;
+  } = CartState() ?? {};
 
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -56,9 +43,7 @@ const InfoProduct: React.FC<InfoProductProps> = () => {
   };
 
   const addToCart = () => {
-    const alreadyInCart = cart.some(
-      (item: { id: number }) => item.id === product.id
-    );
+    const alreadyInCart = cart.some((item) => item.id === product.id);
 
     if (alreadyInCart) {
       setAlertMessage("Este produto já está no carrinho!");
@@ -70,8 +55,9 @@ const InfoProduct: React.FC<InfoProductProps> = () => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId;
 
     if (alertMessage) {
       timeoutId = setTimeout(() => {
@@ -108,15 +94,6 @@ const InfoProduct: React.FC<InfoProductProps> = () => {
             totam excepturi numquam repellendus perferendis delectus dolorum
             aperiam repellat rerum voluptatibus.
           </p>
-          {/* <div className="flex gap-x-[16px] items-center md:mx-0 mx-auto">
-            <button className="w-[40px] rounded-full bg-slate-300 border-1 border-black">
-              <p className="text-lg font-black p-1">-</p>
-            </button>
-            <span>1</span>
-            <button className="w-[40px] rounded-full bg-slate-300 border-1 border-black">
-              <p className="text-lg font-black p-1">+</p>
-            </button>
-          </div> */}
 
           {alertMessage ? (
             <Button

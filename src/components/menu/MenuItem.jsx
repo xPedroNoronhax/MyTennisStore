@@ -1,10 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-interface MenuItemProps {
-  item: string;
-}
-
-const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
+const MenuItem = ({ item, onClick }) => {
   const activeClass =
     "text-lg text-gray-700 font-bold  border-b-2 border-solid border-lime-500";
   const inactiveClass = "text-base text-gray-700 font-bold cursor-pointer";
@@ -19,7 +15,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       <NavLink
         to={`/${item.toLowerCase()}`}
         className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
-        onClick={handleClick} 
+        onClick={handleClick}
       >
         {item}
       </NavLink>

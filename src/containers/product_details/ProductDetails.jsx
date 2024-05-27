@@ -1,17 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Details from "./Details";
 import MoreInfo from "./MoreInfo";
 
-interface ProductDetailsProps {
-  modelo: string;
-  descricao: string;
-  peso: string;
-  tamanho_cabeca: string;
-  padrao_cordas: string;
-  marca: string;
-}
-
-const ProductDetails: React.FC<ProductDetailsProps> = ({
+const ProductDetails = ({
   modelo,
   descricao,
   peso,

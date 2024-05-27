@@ -1,14 +1,12 @@
+import React from "react";
 import ProductCard from "../../components/productsCard/ProductCard";
 import PRODUTOS from "../../produtos";
 
-interface ProdutosMarcaProps {
-  marcaSelecionada?: string;
-}
-
-const ProdutosMarca: React.FC<ProdutosMarcaProps> = ({ marcaSelecionada }) => {
+const ProdutosMarca = ({ marcaSelecionada }) => {
   const produtosDaMarca = PRODUTOS.find(
     (marca) => marca.marca === marcaSelecionada
   );
+
   return (
     <>
       <section className="flex flex-col">
@@ -21,7 +19,6 @@ const ProdutosMarca: React.FC<ProdutosMarcaProps> = ({ marcaSelecionada }) => {
                 productImage={produto.img}
                 productPrice={produto.preco}
                 productId={produto.id}
-                
               />
             ))}
         </div>

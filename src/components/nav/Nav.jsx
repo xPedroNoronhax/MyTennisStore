@@ -16,11 +16,10 @@ const Nav = () => {
   };
 
   const handleMenuItemClick = () => {
-    setOpen(false); 
+    setOpen(false);
   };
 
   useEffect(() => {
-    
     if (open) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
@@ -35,8 +34,10 @@ const Nav = () => {
   return (
     <div className="shadow-md flex md:justify-around w-full  fixed top-0 left-0 z-50 bg-white">
       <div className="flex items-center md:justify-around md:pl-0 pl-4 bg-white py-4 relative">
-        <div className="  font-bold text-2xl cursor-pointer flex items-center  font-[Poppins] 
-      text-gray-800">
+        <div
+          className="  font-bold text-2xl cursor-pointer flex items-center  font-[Poppins] 
+      text-gray-800"
+        >
           <span className="text-3xl text-indigo-600  pt-2">
             <NavLink to="/">
               <Logo />
@@ -59,29 +60,26 @@ const Nav = () => {
           </svg>
         </div>
 
-       <div  >
-         
-            <ul className={`md:flex   md:pb-0 mt-3  md:w-full w-screen justify-center  lg:mr-[400px]  bg-white    md:border-none border-b-2 border-lime-500 pb-12 absolute md:static  md:z-auto z-10 left-0  md:pl-0 pl-9 transition-all duration-500 ease-in ${
+        <div>
+          <ul
+            className={`md:flex   md:pb-0 mt-3  md:w-full w-screen justify-center  lg:mr-[400px]  bg-white    md:border-none border-b-2 border-lime-500 pb-12 absolute md:static  md:z-auto z-10 left-0  md:pl-0 pl-9 transition-all duration-500 ease-in ${
               open ? "top-20 " : "top-[-490px]"
-            }`} ref={menuRef}>
-              <MenuItem item="Babolat" onClick={handleMenuItemClick} />
-              <MenuItem item="Head" onClick={handleMenuItemClick} />
-              <MenuItem item="Yonex" onClick={handleMenuItemClick} />
-              <MenuItem item="Wilson" onClick={handleMenuItemClick} />
-            </ul>
-       </div>
-    
-        
-          <div className="ml-[60px] md:ml-10">
-            <CartUser />
-          </div>
-        
+            }`}
+            ref={menuRef}
+          >
+            <MenuItem item="Babolat" onClick={handleMenuItemClick} />
+            <MenuItem item="Head" onClick={handleMenuItemClick} />
+            <MenuItem item="Yonex" onClick={handleMenuItemClick} />
+            <MenuItem item="Wilson" onClick={handleMenuItemClick} />
+          </ul>
+        </div>
+
+        <div className="ml-[60px] md:ml-10">
+          <CartUser />
+        </div>
       </div>
     </div>
   );
 };
 
 export default Nav;
-/* className={`md:flex md:items-center md:pb-0 mt-3 md:ml-1 lg:mr-[350px] sm:mr-[100px] pb-12 absolute md:static bg-white md:z-auto z-10 left-0 w-full md:w-1/3 md:pl-0 pl-9 transition-all duration-500 ease-in ${
-            open ? "top-20 " : "top-[-490px]"
-          }`}*/
