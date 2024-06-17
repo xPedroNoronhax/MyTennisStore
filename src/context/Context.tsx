@@ -2,6 +2,8 @@ import { createContext, useContext, useReducer } from "react";
 import produtos from "../produtos";
 import { cartReducer } from "./Reducers";
 
+
+
 const Cart = createContext(null);
 const Context = ({ children }) => {
   const products = produtos;
